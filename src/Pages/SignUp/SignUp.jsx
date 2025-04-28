@@ -45,11 +45,11 @@ const SignUp = () => {
             const imgUrl = imgResult.data.display_url;
 
             // Create user with email and password
-            const result = await createUser(data.email, data.password);
+            const result = await createUser(data?.email, data?.password);
             const loggedUser = result.user;
 
             // Update user profile
-            await updateUserProfile(data.name, imgUrl, "user");
+            await updateUserProfile(data?.name, imgUrl, "user");
             setUser(loggedUser);
 
             // Save user to the database
