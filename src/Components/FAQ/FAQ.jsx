@@ -35,27 +35,25 @@ const FAQ = () => {
     };
 
     return (
-        <div className="min-h-screen flex items-center justify-center bg-gray-50 px-6 py-12">
-            <div className="max-w-4xl w-full">
-                <h2 className="text-4xl font-bold text-center text-gray-800 mb-10">Frequently Asked Questions</h2>
-                <div className="space-y-4">
-                    {faqs.map((faq, index) => (
-                        <div key={index} className="bg-white rounded-xl shadow-md p-6">
-                            <div
-                                className="flex justify-between items-center cursor-pointer"
-                                onClick={() => toggleFAQ(index)}
-                            >
-                                <h3 className="text-lg font-semibold text-gray-700">{faq.question}</h3>
-                                <span className="text-indigo-600 text-2xl">
-                                    {openIndex === index ? '-' : '+'}
-                                </span>
-                            </div>
-                            {openIndex === index && (
-                                <p className="mt-4 text-gray-600">{faq.answer}</p>
-                            )}
+        <div className="container mx-auto px-3 mb-5">
+            <h2 className="text-3xl font-bold text-center mb-6">Frequently Asked Questions</h2>
+            <div className="space-y-4">
+                {faqs.map((faq, index) => (
+                    <div key={index} className="bg-white rounded-xl shadow-md p-6">
+                        <div
+                            className="flex justify-between items-center cursor-pointer"
+                            onClick={() => toggleFAQ(index)}
+                        >
+                            <h3 className="text-lg font-semibold">{faq.question}</h3>
+                            <span className="text-indigo-600 text-2xl">
+                                {openIndex === index ? '-' : '+'}
+                            </span>
                         </div>
-                    ))}
-                </div>
+                        {openIndex === index && (
+                            <p className="mt-4 text-gray-600">{faq.answer}</p>
+                        )}
+                    </div>
+                ))}
             </div>
         </div>
     );

@@ -3,10 +3,12 @@ import { Link, useLocation } from 'react-router-dom';
 import useAuth from '../../../Hooks/useAuth';
 import { FaRegUserCircle } from 'react-icons/fa';
 import Swal from 'sweetalert2';
+import useAdmin from '../../../Hooks/UseAdmin';
 
 const Navbar = () => {
 
     const { user, logOut } = useAuth();
+    const [isAdmin] = useAdmin();
 
     const location = useLocation();
 
@@ -34,6 +36,7 @@ const Navbar = () => {
     };
 
     const navOptions = <>
+        <Link to={"/"} className={`p-1 ${location.pathname === '/' ? 'text-amber-500' : ''}`}>Home</Link>
         <Link to={"/aboutus"} className={`p-1 ${location.pathname === '/aboutus' ? 'text-amber-500' : ''}`}>About Us</Link>
         <Link to={"/faq"} className={`p-1 ${location.pathname === '/faq' ? 'text-amber-500' : ''}`}>FAQ</Link>
 
@@ -72,21 +75,35 @@ const Navbar = () => {
                                         src={user?.photoURL || "None"}
                                         alt={user?.displayName || "User"}
                                         title={user?.displayName || "User"} /> :
-                                    <div className='rounded-full flex justify-center items-center'><FaRegUserCircle /></div>
+                                    <div className='rounded-full text-2xl flex justify-center items-center'><FaRegUserCircle /></div>
                                 }
                             </div>
                         </div>
                         <ul
                             tabIndex={0}
-                            className="menu menu-md dropdown-content bg-base-100 rounded-box z-1 mt-3 w-36">
-                            <li>
-                                Dashboard
-                            </li>
+                            className="menu menu-md dropdown-content bg-base-100 rounded-box z-1 mt-3 w-36 space-y-3">
+                            {user && isAdmin &&
+                                <button className='btn btn-info rounded-full text-white'>
+                                    <Link to={"/dashboard/adminHome"}>
+                                        Dashboard
+                                    </Link>
+                                </button>
+
+                            }
+                            {user && !isAdmin &&
+                                <button className='btn btn-info rounded-full text-white'>
+                                    <Link to={"/dashboard/userHome"}>
+                                        Dashboard
+                                    </Link>
+                                </button>
+                            }
                             {user && user?.email ?
-                                <button onClick={handleLogout} className='btn text-red-500'>
+                                <button onClick={handleLogout} className='btn btn-error rounded-full text-white'>
                                     Logout
                                 </button> :
-                                <li><Link to={"/login"}>Login</Link></li>
+                                <button className='btn btn-info rounded-full text-white'>
+                                    <Link to={"/login"}>Login</Link>
+                                </button>
                             }
                         </ul>
                     </div>
