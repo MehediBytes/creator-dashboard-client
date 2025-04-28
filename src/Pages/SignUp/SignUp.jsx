@@ -80,7 +80,7 @@ const SignUp = () => {
     };
 
     return (
-        <div className="max-w-4xl mx-auto">
+        <div className="max-w-3xl mx-auto">
             <div>
                 <form
                     onSubmit={handleSubmit(onSubmit)}
@@ -147,7 +147,7 @@ const SignUp = () => {
                     <p className="text-sm mt-6 text-center">
                         Already have an account?{" "}
                         <Link to="/login" className="text-purple-500 font-bold hover:underline">
-                            Log in here.
+                            Login here.
                         </Link>
                     </p>
                 </form>

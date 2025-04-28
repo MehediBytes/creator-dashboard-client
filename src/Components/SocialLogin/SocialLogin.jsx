@@ -20,7 +20,7 @@ const SocialLogin = () => {
                     Swal.fire({
                         position: 'top-end',
                         icon: 'success',
-                        title: 'Loged in with google successfully.',
+                        title: 'Logged in successfully.',
                         showConfirmButton: false,
                         timer: 1500
                     });

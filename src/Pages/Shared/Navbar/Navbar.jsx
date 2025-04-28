@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import useAuth from '../../../Hooks/useAuth';
 import { FaRegUserCircle } from 'react-icons/fa';
 import Swal from 'sweetalert2';
@@ -8,6 +8,8 @@ const Navbar = () => {
 
     const { user, logOut } = useAuth();
 
+    const location = useLocation();
+
     // Handle Logout
     const handleLogout = () => {
         logOut()
@@ -15,7 +17,7 @@ const Navbar = () => {
                 Swal.fire({
                     position: "top-end",
                     icon: "success",
-                    title: "You are now loged out",
+                    title: "You are now logged out",
                     showConfirmButton: false,
                     timer: 1500
                 });
@@ -31,9 +33,16 @@ const Navbar = () => {
             });
     };
 
+    const navOptions = <>
+        <Link to={"/aboutus"} className={`p-1 ${location.pathname === '/aboutus' ? 'text-amber-500' : ''}`}>About Us</Link>
+        <Link to={"/faq"} className={`p-1 ${location.pathname === '/faq' ? 'text-amber-500' : ''}`}>FAQ</Link>
+
+    </>
+
+
     return (
         <nav className='bg-base-100 fixed w-full z-10 top-0 left-0'>
-            <div className="navbar">
+            <div className="navbar container mx-auto">
                 <div className="navbar-start">
                     <div className="dropdown">
                         <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -41,17 +50,15 @@ const Navbar = () => {
                         </div>
                         <ul
                             tabIndex={0}
-                            className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
-                            <li><a>Item 1</a></li>
-                            <li><a>Item 3</a></li>
+                            className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-36 p-2 shadow">
+                            {navOptions}
                         </ul>
                     </div>
                     <h3 className="text-2xl font-black"><Link to={"/"}>Creator <span className='text-amber-500'>Dashboard</span></Link></h3>
                 </div>
                 <div className="navbar-center hidden lg:flex">
-                    <ul className="menu menu-horizontal px-1">
-                        <li><a>Item 1</a></li>
-                        <li><a>Item 3</a></li>
+                    <ul className="menu menu-horizontal space-x-5">
+                        {navOptions}
                     </ul>
                 </div>
                 <div className="navbar-end">
@@ -65,7 +72,7 @@ const Navbar = () => {
                                         src={user?.photoURL || "None"}
                                         alt={user?.displayName || "User"}
                                         title={user?.displayName || "User"} /> :
-                                    <div className='w-10 h-10 flex justify-center items-center'><FaRegUserCircle /></div>
+                                    <div className='rounded-full flex justify-center items-center'><FaRegUserCircle /></div>
                                 }
                             </div>
                         </div>
